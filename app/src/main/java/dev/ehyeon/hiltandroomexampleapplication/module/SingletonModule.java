@@ -11,6 +11,7 @@ import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
+import dev.ehyeon.hiltandroomexampleapplication.data.memo.MemoDao;
 import dev.ehyeon.hiltandroomexampleapplication.room.ExampleDatabase;
 
 @Module
@@ -21,5 +22,11 @@ public class SingletonModule {
     @Singleton
     public ExampleDatabase provideExampleDatabase(@ApplicationContext Context context) {
         return Room.databaseBuilder(context, ExampleDatabase.class, "Example Database").build();
+    }
+
+    @Provides
+    @Singleton
+    public MemoDao provideMemoDao(ExampleDatabase exampleDatabase) {
+        return exampleDatabase.memoDao();
     }
 }
